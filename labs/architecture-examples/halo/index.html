@@ -4,14 +4,26 @@
   <meta charset="utf-8">
   <title>Halo • TodoMVC</title>
   <link rel="stylesheet" href="../../../assets/base.css">
+
+  <!-- Load in Halo -->
   <script src="public/js/halo.js"></script>
 </head>
 <body>
+  <!-- Create a container for the app -->
   <div id="todoapp"></div>
   <div id="info">
     <p>Double-click to edit a todo</p>
     <p>Created by <a href="https://github.com/Ensighten/Halo">Todd Wolfson</a>.</p>
   </div>
+
+  <!-- Start up the app -->
+  <script>
+    require(['Sauron', 'jquery'], function (Sauron, $) {
+      Sauron.start().controller('main', $('#todoapp'));
+    });
+  </script>
+
+  <!-- DEV: Live reload for simpletons -->
   <script>
     // Grab the current version
     $.get('/version.txt', function (version) {
