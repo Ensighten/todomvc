@@ -20,7 +20,7 @@ define(['Sauron', 'Builder', 'mvc!v/main', 'HtmlController', 'mvc!m/todos', 'mvc
               }
 
               // Otherwise, create a new todo
-              Sauron.model('todos').create({'value': val});
+              Sauron.model('todos').create({'title': val});
             });
 
             // Start up a child to handle the todos
