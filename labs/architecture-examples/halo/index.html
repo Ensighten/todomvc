@@ -16,9 +16,9 @@
     <p>Created by <a href="https://github.com/Ensighten/Halo">Todd Wolfson</a>.</p>
   </div>
 
-  <!-- Start up the app -->
+  <!-- Configure and start up the app -->
   <script>
-    require(['Sauron', 'jquery', 'mvc!c/main'], function (Sauron, $) {
+    require(['Sauron', 'jquery', 'mvc!c/main', 'public/js/app.config'], function (Sauron, $) {
       Sauron.start().controller('main', $('#todoapp'));
     });
   </script>

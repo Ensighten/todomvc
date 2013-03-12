@@ -1,12 +1,12 @@
 /*global define*/
 'use strict';
 
-define(['Builder', 'HtmlController'], function (Builder, HtmlController) {
+define(['Builder', 'mvc!v/todos', 'HtmlController'], function (Builder, HtmlController) {
     var params = {
             'name': 'main',
             'start': function (cb) {
-                console.log('oh hey');
-                cb(Builder('<div>Hello world!</div>'));
+                var $html = Builder('<div>Hello world!</div>');
+                cb($html);
             }
         };
 
