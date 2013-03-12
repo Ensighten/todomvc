@@ -1,5 +1,5 @@
 // Taken from https://github.com/Ensighten/Halo.extras
-define(['CrudModel', './kizzy'], function (CrudModel) {
+define(['CrudModel', './kizzy'], function (CrudModel, kizzy) {
   function persist(params) {
     // Namespace each model and allow for subnamspacing with
     var kizzyKey = params.name + (params.persistKey || ''),
