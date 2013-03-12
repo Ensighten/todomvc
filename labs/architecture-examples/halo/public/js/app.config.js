@@ -1,4 +1,4 @@
-define(['Builder', '/assets/handlebars.min.js'], function (Builder) {
+define(['Builder', './persist.mixin.js', '/assets/handlebars.min.js'], function (Builder) {
   // Configure Builder to use handlebars
   var Handlebars = window.Handlebars;
   Builder.set('template engine', function (tmpl, data) {
