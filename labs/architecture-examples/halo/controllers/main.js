@@ -8,6 +8,21 @@ define(['Sauron', 'Builder', 'mvc!v/main', 'HtmlController', 'mvc!m/todos', 'mvc
             var $html = Builder(tmpl),
                 $todoList = $html.find('#todo-list');
 
+            // When a new todo is submitted
+            var $newTodo = $html.find('#new-todo');
+            $newTodo.on('keypress', function (e) {
+              var wasNotEnter = e.which !== 13,
+                  val = $newTodo.val().trim();
+
+              // If the keypress was not enter or there is no content, return
+              if (wasNotEnter || !val) {
+                return;
+              }
+
+              // Otherwise, create a new todo
+              Sauron.model('todos').create({'value': val});
+            });
+
             // Start up a child to handle the todos
             Sauron.start().controller('todos', $todoList, todos, function () {
               // Callback with the content
