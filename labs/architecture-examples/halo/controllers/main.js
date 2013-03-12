@@ -3,20 +3,29 @@ define(['Sauron', 'Builder', 'mvc!v/main', 'HtmlController', 'mvc!m/todos', 'mvc
         'name': 'main',
         'start': function (cb) {
           // Grab the current todos
-          console.log('aaa');
           Sauron.model('todos').retrieve(function (err, todos) {
-            console.log('bbb');
             // Render our content
             var $html = Builder(tmpl),
                 $todoList = $html.find('#todo-list');
 
             // Start up a child to handle the todos
-            console.log('ccc');
             Sauron.start().controller('todos', $todoList, todos, function () {
-              console.log('ddd');
               // Callback with the content
               cb($html);
             });
+
+            // When there is a change, re-render the list
+            function restartList() {
+              // DEV: It is preferred to run these via async.parallel
+              Sauron.stop().controller('todos', function () {
+                Sauron.model('todos').retrieve(function (err, todos) {
+                  Sauron.start().controller('todos', $todoList, todos);
+                });
+              });
+            }
+            Sauron.model('todos').on().createEvent(restartList);
+            Sauron.model('todos').on().updateEvent(restartList);
+            Sauron.model('todos').on().deleteEvent(restartList);
           });
         }
       };
