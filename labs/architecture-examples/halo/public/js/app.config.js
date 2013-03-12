@@ -1,8 +1,8 @@
-define(['Builder', '/assets/handlebars.min.js'], function (Builder, handlebars) {
+define(['Builder', '/assets/handlebars.min.js'], function (Builder) {
   // Configure Builder to use handlebars
-  var handlebars = window.handlebars;
+  var Handlebars = window.Handlebars;
   Builder.set('template engine', function (tmpl, data) {
-    var tmplFn = handlebars.compile(tmpl);
+    var tmplFn = Handlebars.compile(tmpl);
     return tmplFn(data);
   });
 
