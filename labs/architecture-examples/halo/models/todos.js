@@ -8,6 +8,7 @@ define(['Sauron', 'CrudModel'], function (Sauron, CrudModel) {
       if (!todos) {
         var todosStr = params.persist.get('todos') || '[]';
         todos = JSON.parse(todosStr);
+        params.todos = todos;
       }
 
       // Return our todos
