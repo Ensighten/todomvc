@@ -18,8 +18,10 @@
 
   <!-- Configure and start up the app -->
   <script>
-    require(['Sauron', 'jquery', 'mvc!c/main', 'public/js/app.config'], function (Sauron, $) {
-      Sauron.start().controller('main', $('#todoapp'));
+    require(['public/js/app.config'], function () {
+      require(['Sauron', 'jquery', 'mvc!c/main'], function (Sauron, $) {
+        Sauron.start().controller('main', $('#todoapp'));
+      });
     });
   </script>
 
