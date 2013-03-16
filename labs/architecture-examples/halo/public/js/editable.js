@@ -7,8 +7,12 @@ define(['jqueryp!'], function ($) {
     $item.on('dblclick', '.editable-toggle', function () {
       $item.addClass('editing');
 
+      // Focus the item
+      var $edit = $item.find('.edit');
+      $edit.focus();
+
       // When the .edit field loses focus
-      $item.once('blur', '.edit', function () {
+      $edit.one('blur', function () {
         // Leave editing mode
         $item.removeClass('editing');
 
@@ -17,6 +21,9 @@ define(['jqueryp!'], function ($) {
       });
     });
   }
+
+  // Export Editable to jQuery
+  $.exportModule('editable', Editable);
 
   return $;
 });
