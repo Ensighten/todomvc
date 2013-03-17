@@ -8,7 +8,7 @@ define(['Sauron', 'Builder', 'mvc!v/main', 'HtmlController', 'mvc!m/todos', 'mvc
             var $html = Builder(tmpl),
                 $todoList = $html.find('#todo-list'),
                 $toggleAll = $html.find('#toggle-all'),
-                $footer = $html.find('#footer');
+                $footer = $html.filter('#footer');
 
             // When a new todo is submitted
             var $newTodo = $html.find('#new-todo');
@@ -46,10 +46,11 @@ define(['Sauron', 'Builder', 'mvc!v/main', 'HtmlController', 'mvc!m/todos', 'mvc
             });
 
             // Start up a child to handle the todos
-            Sauron.start().controller('todos', $todoList, todos, function () {
-              // Callback with the content
-              cb($html);
-            });
+            Sauron.start().controller('todos', $todoList, todos);
+            Sauron.start().controller('footer', $footer, todos);
+
+            // Callback with the content
+            cb($html);
 
             function updateState(todos) {
               // If there are todos, show toggleAll

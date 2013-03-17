@@ -3,8 +3,14 @@ define(['Sauron', 'Builder', 'mvc!v/footer', 'HtmlController', 'mvc!m/todos'], f
         'name': 'footer',
         'start': function (todos, cb) {
           // Render our content and callback
-          var $html = Builder(tmpl, {todos: todos});
-          console.log('hey');
+          var completed = todos.filter(function (todo) {
+                return todo.completed;
+              }).length,
+              data = {
+                remaining: todos.length - completed,
+                completed: completed
+              },
+              $html = Builder(tmpl, data);
           cb($html);
         }
       };
