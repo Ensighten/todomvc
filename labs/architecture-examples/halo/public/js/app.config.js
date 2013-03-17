@@ -9,7 +9,7 @@ require.config({
   }
 });
 
-define(['Builder', 'jqueryp!editable', 'persist.mixin', '/assets/handlebars.min.js'], function (Builder, $) {
+define(['Builder', 'jqueryp!editable!radio', 'persist.mixin', '/assets/handlebars.min.js'], function (Builder, $) {
   // Configure Builder to use handlebars
   var Handlebars = window.Handlebars;
   Builder.set('template engine', function (tmpl, data) {
@@ -19,6 +19,7 @@ define(['Builder', 'jqueryp!editable', 'persist.mixin', '/assets/handlebars.min.
 
   // Add editable to be instantiated after render
   Builder.addPlugin('editable');
+  Builder.addPlugin('radio');
 
   // Return a placeholder config
   return {};

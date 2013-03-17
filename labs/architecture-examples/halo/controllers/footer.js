@@ -13,7 +13,7 @@ define(['Sauron', 'Builder', 'mvc!v/footer', 'HtmlController', 'mvc!m/todos', 'm
               $html = Builder(tmpl, data);
 
           // When any of the footer links are clicked, update the state
-          $html.on('click', 'a', function () {
+          $html.on('radio-select', '.radio-item', function () {
             var $a = $(this),
                 filter = $a.data('filter');
             Sauron.model('state').update({filter: filter});
