@@ -31,15 +31,31 @@ define(['Sauron', 'CrudModel'], function (Sauron, CrudModel) {
       todo.id = id;
       todos.unshift(todo);
 
-      // Save the changes
-      this.save();
-
       // Save and fire an create event
+      this.save();
       Sauron.model('todos').createEvent(todo);
     },
     'retrieve': function (cb) {
       var todos = this.load();
       cb(null, todos);
+    },
+    'update': function (_todo, cb) {
+      // Find the todo
+      var todos = this.load(),
+          id = _todo.id,
+          todo = todos.filter(function (todo) {
+            return todo.id === id;
+          })[0];
+
+      // Copy over attributes
+      var keys = Object.getOwnPropertyNames(_todo);
+      keys.forEach(function (key) {
+        todo[key] = _todo[key];
+      });
+
+      // Save and fire an update event
+      this.save();
+      Sauron.model('todos').updateEvent(todo);
     }
   };
   return CrudModel(params);

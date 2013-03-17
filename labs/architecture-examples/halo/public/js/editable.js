@@ -38,6 +38,9 @@ define(['jqueryp!'], function ($) {
 
       // and fire an update event
       $item.trigger('editable-stop');
+    },
+    val: function () {
+      return this.$edit.val();
     }
   };
 
