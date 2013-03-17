@@ -25,11 +25,49 @@ define(['Sauron', 'Builder', 'mvc!v/main', 'HtmlController', 'mvc!m/todos', 'mvc
               $newTodo.val('');
             });
 
+            // When the toggle all is clicked, complete/uncomplete all todos
+            $toggleAll.on('click', function () {
+              var enabled = $toggleAll.prop('checked');
+              if (enabled) {
+                todos.forEach(function completeAll (todo) {
+                  todo.completed = true;
+                });
+              } else {
+                todos.forEach(function uncompleteAll (todo) {
+                  todo.completed = false;
+                });
+              }
+
+              // Save each todo
+              todos.forEach(function saveTodo (todo) {
+                Sauron.model('todos').update(todo);
+              });
+            });
+
             // Start up a child to handle the todos
             Sauron.start().controller('todos', $todoList, todos, function () {
               // Callback with the content
               cb($html);
             });
+
+            function restartState(todos) {
+              // If there are todos, show toggleAll
+              if (todos.length) {
+                $toggleAll.removeClass('hidden');
+              } else {
+              // Otherwise, don't show toggleAll
+                $toggleAll.addClass('hidden');
+              }
+
+              // If all todos are/are not completed, tick/untick toggleAll
+              var allTodosCompleted = todos.every(function (todo) {
+                    return todo.completed;
+                  });
+              $toggleAll.prop('checked', allTodosCompleted);
+            }
+
+            // Restart state now
+            restartState(todos);
 
             // If there are no todos, hide toggle-all
             if (todos.length === 0) {
@@ -41,13 +79,8 @@ define(['Sauron', 'Builder', 'mvc!v/main', 'HtmlController', 'mvc!m/todos', 'mvc
               // DEV: It is preferred to run these via async.parallel
               Sauron.stop().controller('todos', function () {
                 Sauron.model('todos').retrieve(function (err, todos) {
-                  // If there are todos, show toggleAll
-                  if (todos.length) {
-                    $toggleAll.removeClass('hidden');
-                  } else {
-                  // Otherwise, don't show toggleAll
-                    $toggleAll.addClass('hidden');
-                  }
+                  // Restart the state
+                  restartState(todos);
 
                   // Start up the controller
                   Sauron.start().controller('todos', $todoList, todos);
