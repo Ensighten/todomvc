@@ -3,7 +3,7 @@ define(['jqueryp!'], function ($) {
   function Radio(item) {
     var $item = $(item),
         $radioItems = $item.find('.radio-item'),
-        $selectedItem = $radioItems.filter('selected'),
+        $selectedItem = $radioItems.filter('.selected'),
         radio = this;
 
     // Save $item and $selectedItem for later
@@ -53,5 +53,4 @@ define(['jqueryp!'], function ($) {
   $.exportModule('radio', Radio);
 
   return $;
-});
 });
