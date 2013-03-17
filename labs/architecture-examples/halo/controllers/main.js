@@ -6,7 +6,8 @@ define(['Sauron', 'Builder', 'mvc!v/main', 'HtmlController', 'mvc!m/todos', 'mvc
           Sauron.model('todos').retrieve(function (err, todos) {
             // Render our content
             var $html = Builder(tmpl),
-                $todoList = $html.find('#todo-list');
+                $todoList = $html.find('#todo-list'),
+                $toggleAll = $html.find('#toggle-all');
 
             // When a new todo is submitted
             var $newTodo = $html.find('#new-todo');
@@ -30,11 +31,25 @@ define(['Sauron', 'Builder', 'mvc!v/main', 'HtmlController', 'mvc!m/todos', 'mvc
               cb($html);
             });
 
+            // If there are no todos, hide toggle-all
+            if (todos.length === 0) {
+              $toggleAll.addClass('hidden');
+            }
+
             // When there is a change, re-render the list
             function restartList() {
               // DEV: It is preferred to run these via async.parallel
               Sauron.stop().controller('todos', function () {
                 Sauron.model('todos').retrieve(function (err, todos) {
+                  // If there are todos, show toggleAll
+                  if (todos.length) {
+                    $toggleAll.removeClass('hidden');
+                  } else {
+                  // Otherwise, don't show toggleAll
+                    $toggleAll.addClass('hidden');
+                  }
+
+                  // Start up the controller
                   Sauron.start().controller('todos', $todoList, todos);
                 });
               });
