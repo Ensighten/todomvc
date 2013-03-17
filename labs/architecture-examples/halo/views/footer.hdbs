@@ -1,13 +1,13 @@
 <span id="todo-count"><strong>{{remaining}}</strong> item(s) left</span>
 <ul id="filters">
   <li>
-    <a href="#" class="selected" data-target="all">All</a>
+    <a href="#" class="selected" data-filter="all">All</a>
   </li>
   <li>
-    <a href="#" data-target="active">Active</a>
+    <a href="#" data-filter="active">Active</a>
   </li>
   <li>
-    <a href="#" data-target="completed">Completed</a>
+    <a href="#" data-filter="completed">Completed</a>
   </li>
 </ul>
 {{#if completed}}
