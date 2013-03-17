@@ -1,6 +1,6 @@
 /*global define*/
+'use strict';
 define(['Sauron', 'Builder', 'mvc!v/footer', 'HtmlController', 'mvc!m/todos', 'mvc!m/state'], function (Sauron, builder, tmpl, htmlController) {
-	'use strict';
 	var $ = builder.$,
 		params = {
 		'name': 'footer',
