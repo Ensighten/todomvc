@@ -35,7 +35,7 @@ define(['Sauron', 'Builder', 'mvc!v/todos', 'HtmlController', 'mvc!m/todos', 'mv
 					// When any todo is edited on, update the item
 					$html.on('editable-stop', function (e) {
 						var $todo = $(e.target),
-							val = $todo.editable('val'),
+							val = $todo.editable('val').trim(),
 							todo = getTodoBy$Todo($todo);
 
 						// Update its value and update it via the model

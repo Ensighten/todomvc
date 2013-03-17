@@ -10,9 +10,11 @@ define(['Sauron', 'Builder', 'mvc!v/footer', 'HtmlController', 'mvc!m/todos', 'm
 					return todo.completed;
 				}),
 				completed = completedTodos.length,
+				remaining = todos.length - completed,
 				data = {
-					remaining: todos.length - completed,
-					completed: completed
+					remaining: remaining,
+					completed: completed,
+					plural: remaining > 1
 				},
 				$html = builder(tmpl, data),
 				$clearCompleted = $html.filter('#clear-completed');
