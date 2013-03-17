@@ -56,6 +56,18 @@ define(['Sauron', 'CrudModel'], function (Sauron, CrudModel) {
       // Save and fire an update event
       this.save();
       Sauron.model('todos').updateEvent(todo);
+    },
+    'delete': function (todo, cb) {
+      // Find the todo index
+      var todos = this.load(),
+          index = todos.indexOf(todo);
+
+      // Remove it
+      todos.splice(index, 0);
+
+      // Save and fire an delete event
+      this.save();
+      Sauron.model('todos').deleteEvent(todo);
     }
   };
   return CrudModel(params);

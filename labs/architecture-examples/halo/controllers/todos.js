@@ -38,6 +38,16 @@ define(['Sauron', 'Builder', 'mvc!v/todos', 'HtmlController', 'mvc!m/todos'], fu
             Sauron.model('todos').update(todo);
           });
 
+          // When the delete button is clicked
+          $html.on('click', '.destroy', function () {
+            // Find the target todo
+            var $todo = $(this).closest('.todo'),
+                todo = getTodoBy$Todo($todo);
+
+            // Delete it
+            Sauron.model('todos')['delete'](todo);
+          });
+
           // Callback with content
           cb($html);
         }
