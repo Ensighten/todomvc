@@ -8,9 +8,11 @@ define(['Sauron', 'Builder', 'mvc!v/main', 'HtmlController', 'mvc!m/todos', 'mvc
 				Sauron.model('todos').retrieve(function (err, todos) {
 					// Render our content
 					var $html = builder(tmpl),
-						$todoList = $html.find('#todo-list'),
-						$toggleAll = $html.find('#toggle-all'),
-						$footer = $html.filter('#footer');
+						$main = $html.filter('#main'),
+						$todoList = $main.find('#todo-list'),
+						$toggleAll = $main.find('#toggle-all'),
+						$footer = $html.filter('#footer'),
+						$mainGroup = $main.add($footer);
 
 					// When a new todo is submitted
 					var $newTodo = $html.find('#new-todo');
@@ -55,18 +57,20 @@ define(['Sauron', 'Builder', 'mvc!v/main', 'HtmlController', 'mvc!m/todos', 'mvc
 					cb($html);
 
 					function updateState(todos) {
-						// If there are todos, show toggleAll
+						var allTodosCompleted;
+
+						// If there are todos, show mainGroup
 						if (todos.length) {
-							$toggleAll.removeClass('hidden');
+							$mainGroup.removeClass('hidden');
 						} else {
-						// Otherwise, don't show toggleAll
-							$toggleAll.addClass('hidden');
+						// Otherwise, don't show mainGroup
+							$mainGroup.addClass('hidden');
 						}
 
 						// If all todos are/are not completed, tick/untick toggleAll
-						var allTodosCompleted = todos.every(function (todo) {
-									return todo.completed;
-								});
+						allTodosCompleted = todos.every(function (todo) {
+								return todo.completed;
+							});
 						$toggleAll.prop('checked', allTodosCompleted);
 					}
 
