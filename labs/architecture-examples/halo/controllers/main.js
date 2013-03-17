@@ -82,7 +82,7 @@ define(['Sauron', 'Builder', 'mvc!v/main', 'HtmlController', 'mvc!m/todos', 'mvc
             Sauron.model('todos').on().deleteEvent(updateStateFn);
 
 
-            // When there is a change, re-render the list
+            // When there is a change (todos or state), re-render the list
             function restartList() {
               // DEV: It is preferred to run these via async.parallel
               Sauron.stop().controller('todos', function () {
@@ -95,6 +95,7 @@ define(['Sauron', 'Builder', 'mvc!v/main', 'HtmlController', 'mvc!m/todos', 'mvc
             Sauron.model('todos').on().createEvent(restartList);
             Sauron.model('todos').on().updateEvent(restartList);
             Sauron.model('todos').on().deleteEvent(restartList);
+            Sauron.model('state').on().updateEvent(restartList);
 
             // DEV: We can collapse updateState/restartList/restartFooter but it adds to complexity/readability
             // When there is a change, re-render the footer
