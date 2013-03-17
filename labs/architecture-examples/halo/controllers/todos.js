@@ -8,7 +8,7 @@ define(['Sauron', 'Builder', 'mvc!v/todos', 'HtmlController', 'mvc!m/todos', 'mv
 				// Get the state
 				Sauron.model('state').retrieve(function (err, state) {
 					// Filter todos based on state
-					var filter = state.filter || 'all';
+					var filter = state.filter;
 					if (filter === 'active') {
 						todos = todos.filter(function (todo) {
 							return !todo.completed;

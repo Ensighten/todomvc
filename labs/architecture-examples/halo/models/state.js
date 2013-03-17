@@ -5,12 +5,32 @@ define(['Sauron', 'CrudModel'], function (Sauron, crudModel) {
 		'name': 'state',
 		'mixin': ['memory'],
 		'load': function () {
-			// TODO: Read from URLSON if we care to add this
+			// DEV: It is preferred to use URLSON for more complex states
+			// Get our state
+			var state = this.memory.get('state'),
+					hash = window.location.hash;
+
+			// If there is no state, look at the hash
+			if (!state) {
+				state = {filter: 'all'};
+				if (hash === '#/active') {
+					state = {filter: 'active'};
+				} else if (hash === '#/completed') {
+					state = {filter: 'completed'};
+				}
+
+				// Update the hash
+				this.save(state);
+			}
+
 			// Return our state
-			return this.memory.get('state') || {};
+			return state;
 		},
 		'save': function (state) {
-			// TODO: Save to URLSON if we care to add this
+			// Update the hash to our state
+			var filter = state.filter,
+					hash = filter === 'all' ? '#/' : '#/' + filter;
+			window.location.hash = hash;
 			return this.memory.set('state', state);
 		},
 		'retrieve': function (cb) {
