@@ -21,6 +21,9 @@ define(['Builder', 'jqueryp!editable!radio', 'persist.mixin', '/assets/handlebar
   Builder.addPlugin('editable');
   Builder.addPlugin('radio');
 
+  // Help myself out by binding jQuery to Builder
+  Builder.$ = $;
+
   // Return a placeholder config
   return {};
 });
