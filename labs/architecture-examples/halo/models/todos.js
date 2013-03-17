@@ -63,7 +63,7 @@ define(['Sauron', 'CrudModel'], function (Sauron, CrudModel) {
           index = todos.indexOf(todo);
 
       // Remove it
-      todos.splice(index, 0);
+      todos.splice(index, 1);
 
       // Save and fire an delete event
       this.save();
