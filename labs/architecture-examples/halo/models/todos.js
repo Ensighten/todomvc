@@ -24,9 +24,15 @@ define(['Sauron', 'CrudModel'], function (Sauron, CrudModel) {
     },
     'create': function (todo, cb) {
       // Add our todo to the collection
-      var todos = this.load();
+      var todos = this.load(),
+          id = todos.length;
+
+      // Update the todo's id
+      todo.id = id;
       todos.unshift(todo);
-      console.log(todos);
+
+      // Save the changes
+      this.save();
 
       // Save and fire an create event
       Sauron.model('todos').createEvent(todo);
