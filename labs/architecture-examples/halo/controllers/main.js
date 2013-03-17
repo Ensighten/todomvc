@@ -19,8 +19,9 @@ define(['Sauron', 'Builder', 'mvc!v/main', 'HtmlController', 'mvc!m/todos', 'mvc
                 return;
               }
 
-              // Otherwise, create a new todo
+              // Otherwise, create a new todo and clear out content
               Sauron.model('todos').create({'title': val});
+              $newTodo.val('');
             });
 
             // Start up a child to handle the todos
