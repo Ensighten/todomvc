@@ -1,0 +1,15 @@
+<span id="todo-count"><strong>{{remaining}}</strong> item(s) left</span>
+<ul id="filters">
+  <li>
+    <a class="selected" data-target="all">All</a>
+  </li>
+  <li>
+    <a data-target="active">Active</a>
+  </li>
+  <li>
+    <a data-target="completed">Completed</a>
+  </li>
+</ul>
+{{#if completed}}
+<button id="clear-completed">Clear completed ({{completed}})</button>
+{{/if}}

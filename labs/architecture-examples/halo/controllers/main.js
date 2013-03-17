@@ -50,7 +50,7 @@ define(['Sauron', 'Builder', 'mvc!v/main', 'HtmlController', 'mvc!m/todos', 'mvc
               cb($html);
             });
 
-            function restartState(todos) {
+            function updateState(todos) {
               // If there are todos, show toggleAll
               if (todos.length) {
                 $toggleAll.removeClass('hidden');
@@ -67,21 +67,24 @@ define(['Sauron', 'Builder', 'mvc!v/main', 'HtmlController', 'mvc!m/todos', 'mvc
             }
 
             // Restart state now
-            restartState(todos);
+            updateState(todos);
 
-            // If there are no todos, hide toggle-all
-            if (todos.length === 0) {
-              $toggleAll.addClass('hidden');
+            // When there is a change, update the state
+            function updateStateFn() {
+              Sauron.model('todos').retrieve(function (err, todos) {
+                updateState(todos);
+              });
             }
+            Sauron.model('todos').on().createEvent(updateStateFn);
+            Sauron.model('todos').on().updateEvent(updateStateFn);
+            Sauron.model('todos').on().deleteEvent(updateStateFn);
+
 
             // When there is a change, re-render the list
             function restartList() {
               // DEV: It is preferred to run these via async.parallel
               Sauron.stop().controller('todos', function () {
                 Sauron.model('todos').retrieve(function (err, todos) {
-                  // Restart the state
-                  restartState(todos);
-
                   // Start up the controller
                   Sauron.start().controller('todos', $todoList, todos);
                 });
@@ -90,6 +93,21 @@ define(['Sauron', 'Builder', 'mvc!v/main', 'HtmlController', 'mvc!m/todos', 'mvc
             Sauron.model('todos').on().createEvent(restartList);
             Sauron.model('todos').on().updateEvent(restartList);
             Sauron.model('todos').on().deleteEvent(restartList);
+
+            // DEV: We can collapse restartList/restartFooter but it adds to complexity/readability
+            // When there is a change, re-render the footer
+            function restartFooter() {
+              // DEV: It is preferred to run these via async.parallel
+              Sauron.stop().controller('footer', function () {
+                Sauron.model('todos').retrieve(function (err, todos) {
+                  // Start up the controller
+                  Sauron.start().controller('footer', $todoList, todos);
+                });
+              });
+            }
+            Sauron.model('todos').on().createEvent(restartFooter);
+            Sauron.model('todos').on().updateEvent(restartFooter);
+            Sauron.model('todos').on().deleteEvent(restartFooter);
           });
         }
       };
