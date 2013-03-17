@@ -1,4 +1,4 @@
-define(['Sauron', 'Builder', 'mvc!v/main', 'HtmlController', 'mvc!m/todos', 'mvc!c/todos'], function (Sauron, Builder, tmpl, HtmlController) {
+define(['Sauron', 'Builder', 'mvc!v/main', 'HtmlController', 'mvc!m/todos', 'mvc!c/todos', 'mvc!c/footer'], function (Sauron, Builder, tmpl, HtmlController) {
   var params = {
         'name': 'main',
         'start': function (cb) {
@@ -7,7 +7,8 @@ define(['Sauron', 'Builder', 'mvc!v/main', 'HtmlController', 'mvc!m/todos', 'mvc
             // Render our content
             var $html = Builder(tmpl),
                 $todoList = $html.find('#todo-list'),
-                $toggleAll = $html.find('#toggle-all');
+                $toggleAll = $html.find('#toggle-all'),
+                $footer = $html.find('#footer');
 
             // When a new todo is submitted
             var $newTodo = $html.find('#new-todo');
@@ -94,14 +95,12 @@ define(['Sauron', 'Builder', 'mvc!v/main', 'HtmlController', 'mvc!m/todos', 'mvc
             Sauron.model('todos').on().updateEvent(restartList);
             Sauron.model('todos').on().deleteEvent(restartList);
 
-            // DEV: We can collapse restartList/restartFooter but it adds to complexity/readability
+            // DEV: We can collapse updateState/restartList/restartFooter but it adds to complexity/readability
             // When there is a change, re-render the footer
             function restartFooter() {
-              // DEV: It is preferred to run these via async.parallel
               Sauron.stop().controller('footer', function () {
                 Sauron.model('todos').retrieve(function (err, todos) {
-                  // Start up the controller
-                  Sauron.start().controller('footer', $todoList, todos);
+                  Sauron.start().controller('footer', $footer, todos);
                 });
               });
             }
