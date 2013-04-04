@@ -23,7 +23,9 @@ Halo doesn't handle models [at the time of writing][models] but that is because 
 
 We followed the [TodoMVC specification][todomvc-spec] as close as possible except for one case. For routing, instead of using [Flatiron Director as specified][routing], routing was done by hand.
 
-The case for this change is we believe that routes should be dictated by the state of the application and not vice versa. As a result, we implemented a [state model][state-model] which handles any complex case since it is catered to the application. The preferred URL format for a state model is via [URLON][urlon] for simple yet elegant serialization/ and parsing.
+The case for this change is we believe that routes should be dictated by the state of the application and not vice versa. As a result, we implemented a [state model][state-model] which handles any complex case since it is catered to the application.
+
+Additionally, it is preferred to use a [URLON][urlon] format for URLs over RESTful as it simplifies serialization and parsing.
 
 [todomvc-spec]: https://github.com/addyosmani/todomvc/wiki/App-Specification
 [routing]: https://github.com/addyosmani/todomvc/wiki/App-Specification#routing
