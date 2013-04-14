@@ -5,7 +5,6 @@ components/jqueryp/test
 components/jqueryp/.*
 components/jqueryp/LICENSE*
 components/jqueryp/README*
-components/jqueryp/bower*
 components/jqueryp/component*
 components/jqueryp/grunt*
 components/jqueryp/package*
