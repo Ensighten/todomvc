@@ -13,3 +13,4 @@ components/jqueryp/dist/jqueryp.js
 components/jqueryp/dist/jqueryp.min.js
 components/jqueryp/dist/jqueryp.require.min.js
 components/todomvc-common/component.json
+components/jqueryp/bower.json
